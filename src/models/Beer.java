@@ -1,5 +1,12 @@
 package models;
 
+/**
+ * Beer contiene datos de la cerveza, solo utilizo el type a la hora de
+ * preguntar la cerveza favorita, el resto por ahora solo son informativos
+ * 
+ * @author Fede
+ *
+ */
 public class Beer {
 	private String name;
 	private String type;

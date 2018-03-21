@@ -1,5 +1,12 @@
 package models;
 
+/**
+ * BeerProducter extiende de persona e implementa Runnable, sus atributos son a
+ * que bar abastecen y que cerveza producen
+ * 
+ * @author Fede
+ *
+ */
 public class BeerProducter extends Person implements Runnable {
 	private BeerHouse beerHouse;
 	private Beer beerType;
@@ -43,16 +50,19 @@ public class BeerProducter extends Person implements Runnable {
 		return this.beerType;
 	}
 
+	/**
+	 * Metodo de Thread, se ejecuta mientras el bar este cerrado
+	 */
 	@Override
 	public void run() {
 		try {
-			while (beerHouse.getState().equals(false) || beerHouse.getFullStock().equals(false)) {
+			while (beerHouse.getState().equals(false)) {
 				beerHouse.sale(this);
-				 try {
-		                Thread.sleep(2000);
-		            } catch (InterruptedException e) {
-		                e.printStackTrace();
-		            }
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (InterruptedException e) {
 			System.out.println("Debes ingresar donde se encuentra " + this.getFirstName() + " " + this.getLastName());

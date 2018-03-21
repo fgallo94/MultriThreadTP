@@ -108,7 +108,7 @@ public class BeerHouse {
 	/**
 	 * Metodo que pregunta si el stock de cervezas esta lleno, en caso de no estar
 	 * lleno hace la acción, si esta lleno emite un mensaje en pantalla, la acción
-	 * consta de añadir la cerveza que produce este productor hasta que llega a 20
+	 * consta de añadir la cerveza que produce este productor hasta que llega a 100
 	 * que es la capacidad maxima, en caso de que llegue setea el stock en full y
 	 * abre las puertas del bar
 	 * 
@@ -121,7 +121,7 @@ public class BeerHouse {
 			System.out.println("El productor " + producter.getFirstName() + " " + producter.getLastName()
 					+ " produce una: \n " + producter.getBeerType().toString());
 			System.out.println("El stock es de " + this.stock.size() + "\n");
-			if (stock.size() == 20) {
+			if (stock.size() == 100) {
 				this.setFullStock(true);
 				this.open();
 			}

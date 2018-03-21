@@ -67,7 +67,7 @@ public class BeerConsumer extends Person implements Runnable {
 			while (this.goTime == false) {
 				ubication.sale(this);
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

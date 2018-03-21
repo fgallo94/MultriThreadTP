@@ -46,10 +46,17 @@ public class BeerProducter extends Person implements Runnable {
 	@Override
 	public void run() {
 		try {
-			beerHouse.sale(this);
+			while (beerHouse.getState().equals(false) || beerHouse.getFullStock().equals(false)) {
+				beerHouse.sale(this);
+				 try {
+		                Thread.sleep(2000);
+		            } catch (InterruptedException e) {
+		                e.printStackTrace();
+		            }
+			}
 		} catch (InterruptedException e) {
-			System.out.println("Debes ingresar donde se encuentra "+this.getFirstName() +" "+ this.getLastName());
-		}		
+			System.out.println("Debes ingresar donde se encuentra " + this.getFirstName() + " " + this.getLastName());
+		}
 	}
 
 }

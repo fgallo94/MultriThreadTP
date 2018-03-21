@@ -41,23 +41,32 @@ public class Main {
 //			producter1.run();
 //			producter2.run();
 //			producter3.run();
-			beerHouse.setState(true);
-			ArrayList<Beer> lista=new ArrayList<Beer>();
-			lista.add(type1);
-			lista.add(type2);
-			lista.add(type3);
-			lista.add(type1);
-			lista.add(type2);
-			lista.add(type3);
-			lista.add(type1);
-			lista.add(type2);
-			lista.add(type3);
-			lista.add(type1);
-			lista.add(type2);
-			lista.add(type3);
-			beerHouse.setStock(lista);
-			consumer1.run();
-			consumer2.run();
+			beerHouse.setState(false);
+//			ArrayList<Beer> lista=new ArrayList<Beer>();
+//			lista.add(type1);
+//			lista.add(type2);
+//			lista.add(type3);
+//			lista.add(type1);
+//			lista.add(type2);
+//			lista.add(type3);
+//			lista.add(type1);
+//			lista.add(type2);
+//			lista.add(type3);
+//			lista.add(type1);
+//			lista.add(type2);
+//			lista.add(type3);
+//			beerHouse.setStock(lista);
+			
+			Thread t1 = new Thread(consumer1);
+			Thread t2 = new Thread(consumer2);
+			Thread t3 = new Thread(producter1);
+			Thread t4 = new Thread(producter2);
+			Thread t5 = new Thread(producter3);
+			t1.start();
+			t2.start();
+			t3.start();
+			t4.start();
+			t5.start();
 			
 		}
 }

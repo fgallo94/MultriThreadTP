@@ -9,6 +9,7 @@ public class BeerHouse {
 	private ArrayList<Beer> stock;
 	private Boolean state;
 	private Boolean available;
+	private Boolean fullStock;
 
 	public BeerHouse() {
 		this.name = "";
@@ -16,6 +17,7 @@ public class BeerHouse {
 		this.stock = new ArrayList<Beer>();
 		this.state = false;
 		this.available = true;
+		this.fullStock=false;
 	}
 
 	public BeerHouse(String name, String address) {
@@ -24,6 +26,7 @@ public class BeerHouse {
 		this.stock = null;
 		this.state = false;
 		this.available = true;
+		this.fullStock=false;
 	}
 
 	public BeerHouse(BeerHouse beerHouse) {
@@ -32,6 +35,7 @@ public class BeerHouse {
 		this.stock = beerHouse.getStock();
 		this.state = beerHouse.getState();
 		this.available = beerHouse.getAvailable();
+		this.fullStock=beerHouse.getFullStock();
 	}
 
 	public synchronized void sale(Object person) throws InterruptedException {
@@ -44,12 +48,15 @@ public class BeerHouse {
 		} else if (stock.size() <= 0 && this.getState().equals(true) && person.getClass().equals(BeerProducter.class)) {
 
 			System.out.println(((BeerProducter) person).getFirstName() + " da una vuelta por " + this.getName()
-					+ " pero ahí le dicen que aun tienen stock");
+					+ " pero ahí le dicen que no recargan hasta cerrar");
+			this.setFullStock(false);
 		} else if (stock.size() <= 0 && this.getState().equals(true) && person.getClass().equals(BeerConsumer.class)) {
 			System.out.println(((BeerConsumer) person).getFirstName() + " se encuentra que " + this.getName()
 					+ " se quedó sin cervezas y decide irse");
+			((BeerConsumer) person).setGoTime(true);
+			this.setFullStock(false);
 		} else {
-			while (stock.size() > 0) {
+			if (stock.size() > 0) {
 				try {
 					while (getAvailable().equals(false)) {
 						wait();
@@ -78,13 +85,14 @@ public class BeerHouse {
 				wait();
 			} else {
 				this.setAvailable(false);
-				Thread.sleep(1000);
 				stock.add(producter.produceBeer());
 				System.out.println("El productor " + producter.getFirstName() + " " + producter.getLastName()
 						+ " produce una: \n " + producter.getBeerType().toString());
 				this.setAvailable(true);
 				notifyAll();
 			}
+		} if (stock.size() == 20) {
+			this.setFullStock(true);
 		}
 	}
 
@@ -143,6 +151,13 @@ public class BeerHouse {
 	public Boolean getState() {
 		return this.state;
 	}
+	public Boolean getFullStock() {
+		return this.fullStock;
+	}
+	public void setFullStock(boolean bool) {
+		 this.fullStock=bool;
+	}
+
 
 	public Boolean getAvailable() {
 		return this.available;

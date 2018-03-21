@@ -1,5 +1,12 @@
 package models;
 
+/**
+ * BeerConsumer extiende de Persona e implementa Runnable sus atributos son: su
+ * cerveza favorita, a que bar acuden y cuando es hora de irse
+ * 
+ * @author Fede
+ *
+ */
 public class BeerConsumer extends Person implements Runnable {
 	private Beer favoriteBeer;
 	private BeerHouse ubication;
@@ -8,23 +15,23 @@ public class BeerConsumer extends Person implements Runnable {
 	public BeerConsumer() {
 		super();
 		this.favoriteBeer = null;
-		this.ubication=null;
-		this.goTime=false;
+		this.ubication = null;
+		this.goTime = false;
 	}
 
 	public BeerConsumer(String firstName, String address, String lastName, Integer age) {
 		super(firstName, address, lastName, age);
 		this.favoriteBeer = null;
-		this.ubication=null;
-		this.goTime=false;
+		this.ubication = null;
+		this.goTime = false;
 	}
 
 	public BeerConsumer(BeerConsumer BeerConsumer) {
 		super(BeerConsumer.getFirstName(), BeerConsumer.getLastName(), BeerConsumer.getAddress(),
 				BeerConsumer.getAge());
 		this.favoriteBeer = null;
-		this.ubication=null;
-		this.goTime=false;
+		this.ubication = null;
+		this.goTime = false;
 	}
 
 	public void setFavoriteBeer(Beer favoriteBeer) {
@@ -34,7 +41,7 @@ public class BeerConsumer extends Person implements Runnable {
 	public Beer getFavoriteBeer() {
 		return this.favoriteBeer;
 	}
-	
+
 	public void setGoTime(boolean bool) {
 		this.goTime = bool;
 	}
@@ -42,6 +49,7 @@ public class BeerConsumer extends Person implements Runnable {
 	public boolean getGotime() {
 		return this.goTime;
 	}
+
 	public void setUbication(BeerHouse ubication) {
 		this.ubication = ubication;
 	}
@@ -50,19 +58,22 @@ public class BeerConsumer extends Person implements Runnable {
 		return this.ubication;
 	}
 
+	/**
+	 * Metodo de Thread se ejecuta hasta que se de la señal de ir a casa
+	 */
 	@Override
 	public void run() {
-			try {
-				while(this.goTime==false) {
+		try {
+			while (this.goTime == false) {
 				ubication.sale(this);
-				 try {
-		                Thread.sleep(2000);
-		            } catch (InterruptedException e) {
-		                e.printStackTrace();
-		            }
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
-			} catch (InterruptedException e) {
-				System.out.println("Debes ingresar donde se encuentra "+this.getFirstName() +" "+ this.getLastName());
-			}			
+			}
+		} catch (InterruptedException e) {
+			System.out.println("Debes ingresar donde se encuentra " + this.getFirstName() + " " + this.getLastName());
+		}
 	}
 }

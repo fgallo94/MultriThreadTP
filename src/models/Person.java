@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * Person contiene datos basicos de una persona
+ * 
+ * @author Fede
+ *
+ */
 public class Person {
 	private String firstName;
 	private String lastName;
@@ -58,6 +64,5 @@ public class Person {
 	public Integer getAge() {
 		return this.age;
 	}
-
 
 }
